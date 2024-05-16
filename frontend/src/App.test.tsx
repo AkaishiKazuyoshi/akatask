@@ -1,8 +1,8 @@
-import { expect, it, describe, vi } from 'vitest';
+import {describe, expect, it, vi} from 'vitest';
 import {render, screen} from '@testing-library/react'
 import App from "./App.tsx";
 import axios from "axios";
-import { userEvent } from '@testing-library/user-event'
+import {userEvent} from '@testing-library/user-event'
 
 describe('App.tsx', () => {
   it('render loginPage', () => {
@@ -23,7 +23,7 @@ describe('App.tsx', () => {
 
     await userEvent.type(screen.getByPlaceholderText('sample@mail.com'), 'akaishi@mail.com')
     await userEvent.type(screen.getByPlaceholderText('password'), '1234567')
-    await userEvent.click(screen.getByRole('button', { name: 'Login' }))
+    await userEvent.click(screen.getByRole('button', {name: 'Login'}))
 
     expect(spyAxiosPost).toHaveBeenCalledWith('http://localhost:8080/api/login', {
       id: 'akaishi@mail.com',

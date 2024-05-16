@@ -1,19 +1,23 @@
 import './App.css'
 import axios from "axios";
+import {useRef} from "react";
 
 function App() {
+  const mailTextRef = useRef<HTMLInputElement>(null)
+  const passwordTextRef = useRef<HTMLInputElement>(null)
 
   return (
     <>
       <div>ID</div>
-      <input placeholder={'sample@mail.com'} />
+      <input placeholder={'sample@mail.com'} ref={mailTextRef}/>
       <div>Password</div>
-      <input placeholder={'password'} />
+      <input placeholder={'password'} ref={passwordTextRef}/>
       <button onClick={
         () => {
+          // application/json request
           axios.post('http://localhost:8080/api/login', {
-            id: 'akaishi@mail.com',
-            password: '1234567'
+            id: mailTextRef.current?.value,
+            password: passwordTextRef.current?.value
           })
         }
       }>Login</button>
