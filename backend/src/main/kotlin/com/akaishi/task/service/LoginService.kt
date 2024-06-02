@@ -7,7 +7,7 @@ interface LoginService {
 }
 
 @Service
-class DefaultLoginService: LoginService {
+class DefaultLoginService : LoginService {
     override fun login(id: String, password: String): Boolean {
         TODO("Not yet implemented")
     }
