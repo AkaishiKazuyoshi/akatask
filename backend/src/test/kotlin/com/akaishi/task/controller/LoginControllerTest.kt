@@ -32,9 +32,6 @@ class LoginControllerTest {
         }
     }
 
-    // curl -X POST "http://localhost:8080/api/login?id=user@example.com&password=1234568"
-    // curl -X POST -H "Content-Type=application/x-www-form-urlencoded" -d "id=user@example.com&password=1234568" "http://localhost:8080/api/login"
-
     @Test
     fun when_login_success_redirect_mainPage() {
         `when`(stubLoginService.login("user@example.com", "1234567")).thenReturn(true)

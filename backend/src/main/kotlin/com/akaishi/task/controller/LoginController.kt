@@ -18,11 +18,7 @@ class LoginController {
     @PostMapping
     fun login(
         response: HttpServletResponse,
-        body: LoginRequest, // support application/x-www-form-urlencoded
-//        @ModelAttribute body: LoginRequest, // support application/x-www-form-urlencoded
-//        @RequestBody body: MultiValueMap<String, String>, // support application/x-www-form-urlencoded, but not recommend
-//        @RequestParam("id") id: String, @RequestParam("password") password: String, // support application/x-www-form-urlencoded
-//        @RequestBody body: LoginRequest, // support application/json
+        body: LoginRequest
     ) {
         if (loginService.login(body.id, body.password)) {
             response.sendRedirect("http://localhost:3000/main")
