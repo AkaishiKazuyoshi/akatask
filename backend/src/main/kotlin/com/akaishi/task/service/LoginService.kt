@@ -1,5 +1,6 @@
 package com.akaishi.task.service
 
+import com.akaishi.task.repository.LoginRepository
 import org.springframework.stereotype.Service
 
 interface LoginService {
@@ -7,8 +8,12 @@ interface LoginService {
 }
 
 @Service
-class DefaultLoginService : LoginService {
+class DefaultLoginService(
+    private val loginRepository: LoginRepository
+) : LoginService {
+    // Encryption concept
     override fun login(id: String, password: String): Boolean {
-        TODO("Not yet implemented")
+        val optionalUser = loginRepository.findById(id)
+        return optionalUser.isPresent && optionalUser.get().password == password
     }
 }
