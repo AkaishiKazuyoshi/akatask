@@ -1,0 +1,2 @@
+aka-task:
+  secret: ${AKA_TASK_SECRET:aka-task-key}
