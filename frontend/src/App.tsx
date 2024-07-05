@@ -14,8 +14,8 @@ function App() {
       <input placeholder={'password'} ref={passwordTextRef}/>
       <button onClick={
         () => {
-          // application/json request
-          axios.post('http://localhost:8080/api/login', {
+          // Content-Type: application/json
+          axios.post('/api/login', {
             id: mailTextRef.current?.value,
             password: passwordTextRef.current?.value
           })

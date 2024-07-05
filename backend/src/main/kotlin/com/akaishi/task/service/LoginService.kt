@@ -15,7 +15,7 @@ interface LoginService {
 
 @Service
 class DefaultLoginService(
-    @Value("aka-task.secret")
+    @Value("\${aka-task.secret}")
     private val secret: String,
     private val loginRepository: LoginRepository
 ) : LoginService {
