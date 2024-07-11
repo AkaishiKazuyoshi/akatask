@@ -15,7 +15,11 @@ function App() {
       <button onClick={
         () => {
           // Content-Type: application/json
-          axios.post('/api/login', {
+          // axios.post('/api/login', {
+          //   id: mailTextRef.current?.value,
+          //   password: passwordTextRef.current?.value
+          // })
+          axios.post('http://localhost:8080/api/login', { // this is not effected from proxy
             id: mailTextRef.current?.value,
             password: passwordTextRef.current?.value
           })
