@@ -1,5 +1,4 @@
 import './App.css'
-import axios from "axios";
 import {useRef} from "react";
 
 function App() {
@@ -7,25 +6,24 @@ function App() {
   const passwordTextRef = useRef<HTMLInputElement>(null)
 
   return (
-    <>
+    // application/x-form-urlencoded
+    <form action="http://localhost:8080/api/login" method="post">
       <div>ID</div>
-      <input placeholder={'sample@mail.com'} ref={mailTextRef}/>
+      <input name="id" placeholder={'sample@mail.com'} ref={mailTextRef}/>
       <div>Password</div>
-      <input placeholder={'password'} ref={passwordTextRef}/>
-      <button onClick={
-        () => {
-          // Content-Type: application/json
-          // axios.post('/api/login', {
-          //   id: mailTextRef.current?.value,
-          //   password: passwordTextRef.current?.value
-          // })
-          axios.post('http://localhost:8080/api/login', { // this is not effected from proxy
-            id: mailTextRef.current?.value,
-            password: passwordTextRef.current?.value
-          })
-        }
-      }>Login</button>
-    </>
+      <input name="password" placeholder={'password'} ref={passwordTextRef}/>
+      <button
+        // onClick={
+        // () => {
+        //   // Content-Type: application/json
+        //   // AJAX - Asynchronous Javascript and XML
+        //   axios.post('/api/login', {
+        //     id: mailTextRef.current?.value,
+        //     password: passwordTextRef.current?.value
+        //   })
+        // }}
+      >Login</button>
+    </form>
   )
 }
 

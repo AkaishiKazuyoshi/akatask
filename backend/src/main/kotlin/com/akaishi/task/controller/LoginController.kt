@@ -22,7 +22,7 @@ class LoginController(
     @PostMapping
     fun login(
         response: HttpServletResponse,
-        @RequestBody body: LoginRequest
+        body: LoginRequest
     ) {
         if (loginService.login(body.id, body.password)) {
             response.sendRedirect("http://localhost:3000/main")
