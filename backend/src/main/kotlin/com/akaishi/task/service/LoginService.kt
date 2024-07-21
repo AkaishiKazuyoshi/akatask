@@ -2,6 +2,8 @@ package com.akaishi.task.service
 
 import com.akaishi.task.repository.LoginRepository
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
 import java.security.InvalidKeyException
 import java.security.NoSuchAlgorithmException
@@ -18,7 +20,7 @@ class DefaultLoginService(
     @Value("\${aka-task.secret}")
     private val secret: String,
     private val loginRepository: LoginRepository
-) : LoginService {
+) : LoginService, UserDetailsService {
 
     private fun bytesToHexString(bytes: ByteArray): String {
         val hash = StringBuilder()
@@ -42,5 +44,9 @@ class DefaultLoginService(
         val optionalUser = loginRepository.findById(id)
         val encryptedPassword = hmacWith(password)
         return optionalUser.isPresent && optionalUser.get().password == encryptedPassword
+    }
+
+    override fun loadUserByUsername(username: String?): UserDetails {
+        TODO("Not yet implemented")
     }
 }
