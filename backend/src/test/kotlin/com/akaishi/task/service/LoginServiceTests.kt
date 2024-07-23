@@ -2,60 +2,49 @@ package com.akaishi.task.service
 
 import com.akaishi.task.entity.UserEntity
 import com.akaishi.task.repository.LoginRepository
-import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertTrue
+import jakarta.persistence.EntityNotFoundException
+import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 
 @DataJpaTest
 class LoginServiceTests {
     @Autowired
     lateinit var loginRepository: LoginRepository
 
-    lateinit var sut: LoginService
+    lateinit var sut: DefaultLoginService
 
-    @Test
-    fun `given collect id and password when login was called return true`() {
-        loginRepository.save(
-            UserEntity(
-                id = "1234",
-                password = "0583100aa8ee5fb10f459eefd9693ea8b8b9ca5d26ccadbd85d1508ba10bc6f1"
-            )
-        )
-
-
-        sut = DefaultLoginService(secret = "aka-task-key", loginRepository = loginRepository)
-        val result = sut.login(id = "1234", password = "12345")
-
-
-        assertTrue(result)
+    @BeforeEach
+    fun setUp() {
+        sut = DefaultLoginService(loginRepository = loginRepository)
     }
 
     @Test
-    fun `given user is not existed when login was called return false`() {
-        sut = DefaultLoginService(secret = "aka-task-key", loginRepository = loginRepository)
-        val result = sut.login(id = "1234", password = "abcd")
+    fun `given user is existed when loadUserByUsername then return user`() {
+        val userName = "Akaishi"
+        val password = "password"
+        loginRepository.save(UserEntity(id = userName, password = password))
 
 
-        assertFalse(result)
+        val result = sut.loadUserByUsername(userName)
+
+
+        assertEquals(result.username, userName)
+        assertEquals(result.password, password)
+        assertIterableEquals(result.authorities, listOf(SimpleGrantedAuthority("ROLE_USER")))
     }
 
-
     @Test
-    fun `given invalid password existed when login was called return false`() {
-        loginRepository.save(
-            UserEntity(
-                id = "1234",
-                password = "0583100aa8ee5fb10f459eefd9693ea8b8b9ca5d26ccadbd85d1508ba10bc6f1"
-            )
-        )
+    fun `given user is not existed when loadUserByUsername then throw EntityNotFoundException`() {
+        val userName = "Akaishi"
 
 
-        sut = DefaultLoginService(secret = "aka-task-key", loginRepository = loginRepository)
-        val result = sut.login(id = "1234", password = "efgh")
-
-
-        assertFalse(result)
+        val throwable = assertThrows(EntityNotFoundException::class.java) {
+            sut.loadUserByUsername(userName)
+        }
+        assertEquals("Akaishi is not existed", throwable.message)
     }
 }

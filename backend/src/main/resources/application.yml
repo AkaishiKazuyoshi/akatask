@@ -1,5 +1,3 @@
-aka-task:
-  secret: ${AKA_TASK_SECRET:aka-task-key}
 spring:
   datasource:
     url: jdbc:h2:mem:test;MODE=PostgreSQL

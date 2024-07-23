@@ -6,24 +6,13 @@ function App() {
   const passwordTextRef = useRef<HTMLInputElement>(null)
 
   return (
-    // application/x-form-urlencoded
     <form action="http://localhost:8080/api/login" method="post">
-      <div>ID</div>
-      <input name="id" placeholder={'sample@mail.com'} ref={mailTextRef}/>
-      <div>Password</div>
-      <input name="password" placeholder={'password'} ref={passwordTextRef}/>
-      <button
-        // onClick={
-        // () => {
-        //   // Content-Type: application/json
-        //   // AJAX - Asynchronous Javascript and XML
-        //   axios.post('/api/login', {
-        //     id: mailTextRef.current?.value,
-        //     password: passwordTextRef.current?.value
-        //   })
-        // }}
-      >Login</button>
-    </form>
+    <div>ID</div>
+    <input name="id" placeholder={'sample@mail.com'} ref={mailTextRef}/>
+    <div>Password</div>
+    <input name="password" placeholder={'password'} ref={passwordTextRef}/>
+    <button>Login</button>
+  </form>
   )
 }
 

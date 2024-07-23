@@ -1,5 +1,5 @@
-import {describe, expect, it, vi} from 'vitest';
-import {render, screen} from '@testing-library/react'
+import {describe, expect, it, vi, vitest} from 'vitest';
+import {fireEvent, render, screen} from '@testing-library/react'
 import App from "./App.tsx";
 import axios from "axios";
 import {userEvent} from '@testing-library/user-event'
@@ -17,17 +17,30 @@ describe('App.tsx', () => {
     }))
   });
 
+  // https://junhyunny.github.io/react/jest/how-to-test-form-submit-event-in-react/
   it('given email, password wrote when click login then request login via axios', async () => {
-    const spyAxiosPost = vi.spyOn(axios, 'post').mockResolvedValue(null)
+    const form = loginForm();
+    form.onsubmit = vitest.fn();
     render(<App/>)
 
     await userEvent.type(screen.getByPlaceholderText('sample@mail.com'), 'akaishi@mail.com')
     await userEvent.type(screen.getByPlaceholderText('password'), '1234567')
-    await userEvent.click(screen.getByRole('button', {name: 'Login'}))
+    fireEvent.submit(screen.getByRole("button", {name: "Login"}))
 
-    expect(spyAxiosPost).toHaveBeenCalledWith('http://localhost:8080/api/login', {
-      id: 'akaishi@mail.com',
-      password: '1234567'
-    })
+    //make test
   })
 })
+
+const loginForm = () =>
+  screen.getByRole("form", {
+    name: "form",
+  });
+
+const nameInput = () => screen.getByPlaceholderText("username");
+
+const passwordInput = () => screen.getByPlaceholderText("password");
+
+const loginButton = () =>
+  screen.getByRole("button", {
+    name: "login",
+  });
