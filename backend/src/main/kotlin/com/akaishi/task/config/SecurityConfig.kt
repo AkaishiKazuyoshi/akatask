@@ -15,6 +15,7 @@ class SecurityConfig {
         httpSecurity.formLogin {
             it.loginProcessingUrl("/api/login")
                 .usernameParameter("id")
+                .defaultSuccessUrl("http://localhost:5173/main")
         }
         httpSecurity.csrf {
             it.ignoringRequestMatchers("/api/login")

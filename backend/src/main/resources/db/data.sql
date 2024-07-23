@@ -1,2 +1,2 @@
 INSERT INTO TB_USERS(ID, PASSWORD)
-VALUES ('akaishi@mail.com', '6761c391cdba88524bcea0226675a7f050d2fa5cb9d98a9c55f48e546bd20f4f');
+VALUES ('akaishi@mail.com', '{bcrypt}$2a$10$XYL3vddzXFCVbT7/OrSJuO.Q7i.jT9RQAcSHj3lVCtrGAYwt4zOLK');

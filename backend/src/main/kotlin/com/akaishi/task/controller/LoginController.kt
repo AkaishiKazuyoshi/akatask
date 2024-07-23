@@ -1,12 +1,6 @@
 package com.akaishi.task.controller
 
-import com.akaishi.task.model.LoginRequest
-import com.akaishi.task.service.LoginService
-import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 
 // I(backend server) believe only http://localhost:8080 site. because http://localhost:8080 is me!.
@@ -15,21 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping
 //@CrossOrigin(origins = ["http://localhost:5173"]) // HTTP RESPONSE HEADER SETUP
 @Controller
 @RequestMapping("/api/login")
-class LoginController(
-    private var loginService: LoginService
-) {
+class LoginController {
 //    @CrossOrigin
-    @PostMapping
-    fun login(
-        response: HttpServletResponse,
-        body: LoginRequest
-    ) {
-        if (loginService.login(body.id, body.password)) {
-            response.sendRedirect("http://localhost:3000/main")
-        } else {
-            response.sendRedirect("http://localhost:3000")
-        }
-    }
+//    @PostMapping
+//    fun login(
+//        response: HttpServletResponse,
+//        body: LoginRequest
+//    ) {
+//        if (loginService.login(body.id, body.password)) {
+//            response.sendRedirect("http://localhost:3000/main")
+//        } else {
+//            response.sendRedirect("http://localhost:3000")
+//        }
+//    }
 }
 
 // @CrossOrigin
