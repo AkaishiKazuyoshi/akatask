@@ -1,41 +1,35 @@
 import {describe, expect, it,  vitest} from 'vitest';
-import {fireEvent, render, screen} from '@testing-library/react'
+import {render, screen} from "@testing-library/react";
 import App from "./App.tsx";
-import {userEvent} from '@testing-library/user-event'
+import {MemoryRouter} from "react-router-dom";
+
+vitest.mock('./LoginPage', () => ({
+  default: () =>
+    <div data-testid="LoginPage" />
+}))
+vitest.mock('./MainPage', () => ({
+  default: () =>
+    <div data-testid="MainPage" />
+}))
 
 describe('App.tsx', () => {
-  it('render loginPage', () => {
-    render(<App/>)
+  it('can see login page at first time', () => {
+    render(
+    <MemoryRouter initialEntries={['/']}>
+      <App/>
+    </MemoryRouter>
+    )
 
-    expect(screen.getByText('ID'))
-    expect(screen.getByPlaceholderText('sample@mail.com'))
-    expect(screen.getByText('Password'))
-    expect(screen.getByPlaceholderText('password'))
-    expect(screen.getByRole('button', {
-      name: 'Login'
-    }))
-  });
+    expect(screen.getByTestId("LoginPage")).toBeInTheDocument()
+  })
 
-  it('given email, password wrote when click login then request login via axios', async () => {
-    render(<App/>)
-    const form = loginForm();
-    form.onsubmit = vitest.fn();
+  it('can see main page when /main address access', () => {
+    render(
+      <MemoryRouter initialEntries={['/main']}>
+        <App/>
+      </MemoryRouter>
+    )
 
-    await userEvent.type(screen.getByPlaceholderText('sample@mail.com'), 'akaishi@mail.com')
-    await userEvent.type(screen.getByPlaceholderText('password'), '1234567')
-    fireEvent.submit(screen.getByRole("button", {name: "Login"}))
-
-    expect(form).toHaveAttribute("method", "post")
-    expect(form).toHaveAttribute("action", "http://localhost:8080/api/login")
-    expect(form).toHaveFormValues({
-      id: "akaishi@mail.com",
-      password: "1234567"
-    })
-    expect(form.onsubmit).toHaveBeenCalled()
+    expect(screen.getByTestId("MainPage")).toBeInTheDocument()
   })
 })
-
-const loginForm = () =>
-  screen.getByRole("form", {
-    name: "login-form",
-  });
