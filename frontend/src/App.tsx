@@ -6,7 +6,7 @@ function App() {
   const passwordTextRef = useRef<HTMLInputElement>(null)
 
   return (
-    <form action="http://localhost:8080/api/login" method="post">
+    <form action="http://localhost:8080/api/login" method="post" aria-label="login-form">
     <div>ID</div>
     <input name="id" placeholder={'sample@mail.com'} ref={mailTextRef}/>
     <div>Password</div>
