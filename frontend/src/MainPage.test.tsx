@@ -9,6 +9,12 @@ vi.mock("react-router-dom", () => ({
   useNavigate: () => mockNavigate,
 }));
 
+const makeMockTodoRepository = () => {
+  return {
+    getTodos: vi.fn<[], Promise<Todo[]>>(),
+  };
+};
+
 describe("MainPage.tsx", () => {
   it("user can see MainPage when user is authorized", () => {
     const spyAxiosGet = vi.spyOn(axios, "get").mockResolvedValue(undefined);
@@ -26,5 +32,20 @@ describe("MainPage.tsx", () => {
     await waitFor(() => {
       expect(mockNavigate).toHaveBeenCalledWith("/");
     });
+  });
+
+  it("show todo list when axios todo list was responsed", async () => {
+    vi.spyOn(axios, "get").mockResolvedValue(undefined);
+    const mockRepository = makeMockTodoRepository();
+    mockRepository.getTodos.mockResolvedValue([
+      { id: 1, title: "title1" },
+      { id: 2, title: "title2" },
+    ]);
+
+    render(<MainPage repository={mockRepository} />);
+
+    expect(mockRepository.getTodos).toHaveBeenCalled();
+    expect(await screen.findByText("title1")).toBeInTheDocument();
+    expect(screen.getByText("title2")).toBeInTheDocument();
   });
 });
