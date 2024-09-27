@@ -1,2 +1,6 @@
 INSERT INTO TB_USERS(ID, PASSWORD)
 VALUES ('akaishi@mail.com', '{bcrypt}$2a$10$XYL3vddzXFCVbT7/OrSJuO.Q7i.jT9RQAcSHj3lVCtrGAYwt4zOLK');
+
+INSERT INTO TB_TODO(ID, TITLE)
+VALUES (1, 'todo1');
+
