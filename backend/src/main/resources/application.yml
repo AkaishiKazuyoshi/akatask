@@ -16,3 +16,7 @@ spring:
     init:
       mode: embedded
       data-locations: classpath:db/data.sql
+amazon:
+  dynamodb:
+    table-name: TodoTable_20240925
+    endpoint: ${AMAZON_DYNAMODB_ENDPOINT:default}

@@ -27,6 +27,9 @@ dependencies {
 	runtimeOnly("com.h2database:h2")
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	testImplementation("org.springframework.security:spring-security-test")
+	implementation(platform("software.amazon.awssdk:bom:2.28.11"))
+	implementation("software.amazon.awssdk:dynamodb-enhanced")
+	testImplementation("org.springframework.boot:spring-boot-testcontainers")
 }
 
 tasks.withType<KotlinCompile> {
