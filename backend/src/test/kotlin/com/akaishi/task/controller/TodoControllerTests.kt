@@ -28,13 +28,14 @@ class TodoControllerTests {
     fun `return todos when request for api-todo`() {
         `when`(todoService.getTodos()).thenReturn(
             listOf(
-                Todo(id = 1, title = "title1")
+                Todo(id = "1", title = "title1", content = "content")
             )
         )
 
         mockMvc.get("/api/todos").andExpect {
-                jsonPath("$[0].id") { value(1) }
+                jsonPath("$[0].id") { value("") }
                 jsonPath("$[0].title") { value("title1") }
+                jsonPath("$[0].content") { value("content") }
             }
         verify(todoService, times(1)).getTodos()
     }

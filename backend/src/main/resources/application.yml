@@ -12,10 +12,10 @@ spring:
     console:
       path: /h2-console
       enabled: true
-  sql:
-    init:
-      mode: embedded
-      data-locations: classpath:db/data.sql
+#  sql:
+#    init:
+#      mode: embedded
+#      data-locations: classpath:db/data.sql
 amazon:
   dynamodb:
     table-name: TodoTable_20240925

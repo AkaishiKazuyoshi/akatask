@@ -13,7 +13,7 @@ class DefaultTodoService(val todoRepository: TodoRepository) : TodoService {
     override fun getTodos(): List<Todo> {
         val todos = todoRepository.findAll()
         return todos.map { todo ->
-            Todo(id = todo.id, title = todo.title)
+            Todo(id = todo.id, title = todo.title, content = todo.content)
         }
     }
 }

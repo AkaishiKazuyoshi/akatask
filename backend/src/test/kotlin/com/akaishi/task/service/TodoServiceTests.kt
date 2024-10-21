@@ -25,12 +25,14 @@ class TodoServiceTests {
         `when`(todoRepository.findAll()).thenReturn(
             listOf(
                 TodoEntity(
-                    id = 1,
-                    title = "title1"
+                    id = "1",
+                    title = "title1",
+                    content = "content1"
                 ),
                 TodoEntity(
-                    id = 2,
-                    title = "title2"
+                    id = "2",
+                    title = "title2",
+                    content = "content2"
                 )
             )
         )
