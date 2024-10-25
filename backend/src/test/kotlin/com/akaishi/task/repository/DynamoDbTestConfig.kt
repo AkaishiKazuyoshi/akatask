@@ -1,5 +1,7 @@
 package com.akaishi.task.repository
 
+import org.springframework.test.context.DynamicPropertyRegistry
+import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.containers.GenericContainer
 import org.testcontainers.utility.DockerImageName
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials
@@ -45,6 +47,13 @@ abstract class DynamoDbTestConfig {
 
             val describeTableRequest = DescribeTableRequest.builder().tableName(TEST_TABLE_NAME).build()
             dynamoDbClient.waiter().waitUntilTableExists(describeTableRequest)
+        }
+
+        @JvmStatic
+        @DynamicPropertySource
+        fun registerDynamoDbProperties(registry: DynamicPropertyRegistry) {
+            registry.add("amazon.dynamodb.endpoint") { "http://localhost:${dynamoDbContainer.getMappedPort(8000)}" }
+            registry.add("amazon.dynamodb.table-name") { TEST_TABLE_NAME }
         }
     }
 

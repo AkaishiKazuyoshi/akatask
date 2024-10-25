@@ -3,6 +3,7 @@ package com.akaishi.task.service
 import com.akaishi.task.entity.Todo
 import com.akaishi.task.repository.TodoRepository
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 interface TodoService {
     fun getTodos(): List<Todo>
