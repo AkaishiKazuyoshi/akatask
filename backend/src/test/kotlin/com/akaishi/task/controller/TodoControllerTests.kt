@@ -33,7 +33,7 @@ class TodoControllerTests {
         )
 
         mockMvc.get("/api/todos").andExpect {
-                jsonPath("$[0].id") { value("") }
+                jsonPath("$[0].id") { value("1") }
                 jsonPath("$[0].title") { value("title1") }
                 jsonPath("$[0].content") { value("content") }
             }

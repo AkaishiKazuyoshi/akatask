@@ -40,9 +40,9 @@ class TodoServiceTests {
         val result = sut.getTodos()
 
         assertEquals(result.size, 2)
-        assertEquals(result[0].id, 1)
+        assertEquals(result[0].id, "1")
         assertEquals(result[0].title, "title1")
-        assertEquals(result[1].id, 2)
+        assertEquals(result[1].id, "2")
         assertEquals(result[1].title, "title2")
     }
 }
