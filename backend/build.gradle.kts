@@ -30,6 +30,12 @@ dependencies {
 	implementation(platform("software.amazon.awssdk:bom:2.28.11"))
 	implementation("software.amazon.awssdk:dynamodb-enhanced")
 	testImplementation("org.springframework.boot:spring-boot-testcontainers")
+
+//	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("jakarta.xml.bind:jakarta.xml.bind-api:4.0.2")
+	runtimeOnly("org.glassfish.jaxb:jaxb-runtime:4.0.5")
+	runtimeOnly("org.eclipse.angus:angus-activation:2.0.2")
+
 }
 
 tasks.withType<KotlinCompile> {
